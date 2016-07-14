@@ -12,7 +12,6 @@ public class SettingController {
     @RequestMapping("/setting")
     @ResponseBody
     public String setting(){
-        ArrayList
         return "Setting:OK";
     }
 }

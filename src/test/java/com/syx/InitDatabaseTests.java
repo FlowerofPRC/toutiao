@@ -1,7 +1,9 @@
 package com.syx;
 
+import com.syx.dao.LoginTicketDAO;
 import com.syx.dao.NewsDAO;
 import com.syx.dao.UserDAO;
+import com.syx.model.LoginTicket;
 import com.syx.model.News;
 import com.syx.model.User;
 import org.junit.Assert;
@@ -26,6 +28,9 @@ public class InitDatabaseTests {
     @Autowired
     NewsDAO newsDAO;
 
+    @Autowired
+    LoginTicketDAO loginTicketDAO;
+
     @Test
     public void initData(){
         Random random = new Random();
@@ -49,14 +54,24 @@ public class InitDatabaseTests {
             news.setLink(String.format("http://www.nowcoder.com/%d.html", i));
             newsDAO.addNews(news);
 
-
             user.setPassword("newpassword");
             userDAO.updatePassword(user);
+
+            LoginTicket ticket =  new LoginTicket();
+            ticket.setStatus(0);
+            ticket.setUserId(i+1);
+            ticket.setExpired(date);
+            ticket.setTicket(String.format("TICKET%d",i+1));
+            loginTicketDAO.addTicket(ticket);
+            loginTicketDAO.updateStatus(ticket.getTicket(),2);
         }
 
         Assert.assertEquals("newpassword",userDAO.selectById(1).getPassword());
         userDAO.deleteById(1);
         Assert.assertNull(userDAO.selectById(1));
+
+        Assert.assertEquals(1,loginTicketDAO.selectByTicket("TICKET1").getUserId());
+        Assert.assertEquals(2,loginTicketDAO.selectByTicket("TICKET2").getStatus());
     }
 
 }
