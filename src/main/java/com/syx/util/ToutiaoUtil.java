@@ -13,6 +13,16 @@ import java.util.Map;
 public class ToutiaoUtil {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ToutiaoUtil.class);
 
+    public static String IMAGE_DIR = "D:/upload/";
+    public static String[] IMAGE_FILE_EXT = new String[] {"png", "bmp", "jpg", "jpeg"}
+    public static boolean isFileAllowed(String fileExt){
+        for (String ext:IMAGE_FILE_EXT){
+            if (ext.equals(fileExt)){
+                return true;
+            }
+        }
+    }
+
     public static String getJSONString(int code){
         JSONObject json = new JSONObject();
         json.put("code",code);
