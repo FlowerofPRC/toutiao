@@ -1,6 +1,5 @@
 package com.syx.controller;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.syx.model.News;
 import com.syx.model.ViewObject;
 import com.syx.service.NewsService;
@@ -15,8 +14,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Administrator on 2016/7/12.
@@ -68,14 +69,14 @@ public class LoginController {
                 if (rememberme > 0) {
                     cookie.setMaxAge(3600*24*5);
                 }
-                return ToutiaoUtil.getJSONString(0, "注册成功");
+                return ToutiaoUtil.getJSONString(0, "登录成功");
             } else {
                 return ToutiaoUtil.getJSONString(1, map);
             }
 
         } catch (Exception e) {
-            logger.error("注册异常" + e.getMessage());
-            return ToutiaoUtil.getJSONString(1, "注册异常");
+            logger.error("登录异常" + e.getMessage());
+            return ToutiaoUtil.getJSONString(1, "登录异常");
         }
     }
 

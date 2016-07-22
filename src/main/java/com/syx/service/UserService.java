@@ -47,6 +47,8 @@ public class UserService {
         user.setPassword(ToutiaoUtil.MD5(password+user.getSalt()));
         userDAO.addUser(user);
 
+        String ticket = addLoginTicket(user.getId());
+        map.put("ticket", ticket);
         return map;
     }
 
